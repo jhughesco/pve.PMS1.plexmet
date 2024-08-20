@@ -1,0 +1,50 @@
+---
+- name: "k3s-nodes"
+  count: 3
+  node_name: "proxmox-vmfarm"
+  resource_name: "k3s-node"
+  vm_id: 1000
+  agent:
+    enabled: true
+    type: "virtio"
+  bios: "seabios"
+  ignore_changes:
+    - "disks"
+    - "cdrom"
+  cpu:
+    cores: 4
+    sockets: 1
+  cloud_init:
+    type: "nocloud"
+    interface: "ide0"
+    datastore_id: "local-lvm"
+    dns:
+      domain: ""
+      server: "1.1.1.1 8.8.8.8"
+    ip_configs:
+      - ipv4:
+          address: "192.168.90.50/32"
+          gateway: "192.168.90.1"
+    user_account:
+      username: "root"
+      keys:
+       - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAiL82k0HKfSFp3JgdpShVvx9mRDk5fyYQyto00tBdeC
+
+  clone:
+    node_name: "proxmox-vmfarm"
+    vm_id: 100
+    full: true
+  disks:
+    - disk1:
+        interface: "scsi0"
+        datastore_id: "local-lvm"
+        size: 180
+        file_format: "raw"
+        cache: "none"
+  memory:
+    dedicated: 16384
+  network_devices:
+    - net1:
+        bridge: "vmbr0"
+        model: "virtio"
+  on_boot: true

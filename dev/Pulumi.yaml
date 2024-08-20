@@ -1,0 +1,11 @@
+name: pve.PMS1.plexmet
+runtime:
+  name: python
+  options:
+    toolchain: pip
+    virtualenv: venv
+description: First Pulumi project and stack.  Synced with github.
+config:
+  pulumi:tags:
+    value:
+      pulumi:template: python

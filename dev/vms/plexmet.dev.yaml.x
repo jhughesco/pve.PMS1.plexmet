@@ -1,3 +1,6 @@
+name: proxmoxve-container
+runtime: yaml
+
 resources:
   plexmetContainer:
     type: proxmoxve:CT:Container
@@ -15,7 +18,7 @@ resources:
       cpu: 
         cores: 4
         sockets: 1
-      cpulimit: 0 # no limit
+      cpulimit: 4  # Set the CPU cores limit to 4
       cpuunits: 100
       netifs:
         - name: "eth0"
